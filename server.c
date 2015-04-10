@@ -7,6 +7,8 @@
 SHMSZ > 4*LIMIT
 
 SHMSZ has to be shmall? (32MB on cello) 
+
+Always execute 'ipcrm shm <shmid>' before running the server
 **/
 
 main(int argc, char *argv[])
