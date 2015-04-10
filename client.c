@@ -7,10 +7,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#define SHMSZ     27
-
 extern double mysecond();
-main()
+main(int argc, char *argv[])
 {
     int shmid;
     key_t key;
@@ -18,6 +16,8 @@ main()
     //time_t start,end;
     double start,end;
 
+    int SHMSZ = atoi(argv[1]);
+    int LIMIT = atoi(argv[2]);
     /*
      * We need to get the segment named
      * "5678", created by the server.
@@ -27,6 +27,7 @@ main()
     /*
      * Locate the segment.
      */
+    printf("SIZE: %d\n", SHMSZ);
     if ((shmid = shmget(key, SHMSZ, 0666)) < 0) {
         perror("shmget");
         exit(1);
@@ -46,8 +47,13 @@ main()
 
     start = mysecond(); 
     //start = time(NULL); 
-    for (s = shm; *s != 100; s++)
-        printf("%d", *s);
+    int i = 0;
+    printf("LIMIT: %d\n", LIMIT);
+    for (s = shm; i < LIMIT; s++){
+        //printf("%d\t", *s);
+        *s;
+        i++;
+    }
     putchar('\n');
     //end = time(NULL); 
     end = mysecond(); 
@@ -59,7 +65,7 @@ main()
      * segment to '*', indicating we have read 
      * the segment.
      */
-    *shm = 101;
+    *shm = LIMIT+1;
 
     exit(0);
 }

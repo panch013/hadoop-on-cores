@@ -3,15 +3,21 @@
 #include <sys/shm.h>
 #include <stdio.h>
 
-#define SHMSZ     27
+/**
+SHMSZ > 4*LIMIT
 
-main()
+SHMSZ has to be shmall? (32MB on cello) 
+**/
+
+main(int argc, char *argv[])
 {
     int c;
     int shmid,i;
     key_t key;
     int *shm, *s;
 
+    int SHMSZ = atoi(argv[1]);
+    int LIMIT = atoi(argv[2]);
     /*
      * We'll name our shared memory segment
      * "5678".
@@ -22,6 +28,7 @@ main()
      * Create the segment.
      */
 
+    printf("SIZE: %d\n", SHMSZ);
     if ((shmid = shmget(key, SHMSZ, IPC_CREAT | 0666)) < 0) {
         perror("shmget");
         exit(1);
@@ -41,9 +48,13 @@ main()
      */
     s = shm;
 
-    for (c = 0; c < 100; c++)
-        *s++ = c;
-    *s = 100;
+    printf("LIMIT: %d\n", LIMIT);
+    for (c = 0; c < LIMIT; c++){
+        *s = c;
+        //printf("%d\t", *s);
+        s++;
+    }
+    *s = LIMIT;
 
     /*
      * Finally, we wait until the other process 
@@ -51,7 +62,7 @@ main()
      * to '*', indicating that it has read what 
      * we put there.
      */
-    while (*shm != 101)
+    while (*shm != (LIMIT+1))
         sleep(1);
 
     printf("Stopped!\n ");
