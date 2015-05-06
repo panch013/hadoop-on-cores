@@ -1,0 +1,9 @@
+ipcrm -M 0x0000162e 
+ipcrm -M 0x0000162f 
+ipcrm -M 0x00001630 
+ipcrm -M 0x00001631 
+ipcrm -M 0x00001632 
+ipcrm -M 0x00001633 
+ipcrm -M 0x00001634 
+ipcrm -M 0x00001635 
+

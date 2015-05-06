@@ -1,0 +1,18 @@
+echo "Running Servers(Write)"
+taskset 0xff00 ./server 300000000 70000000 300000 70000 5678 5679 &
+taskset 0xff0000 ./server 300000000 70000000 300000 70000 5680 5681 &
+taskset 0xff00000000 ./server 300000000 70000000 300000 70000 5682 5683 &
+taskset 0xff000000000000 ./server 300000000 70000000 300000 70000 5684 5685 &
+
+sleep 5
+echo "Running Clients(Read)"
+taskset 0xff0000 ./client 300000000 70000000 300000000 70000000 300000000 70000000 300000000 70000000 5678 5680 5682 5684 
+taskset 0xff00 ./client 300000 70000 300000 70000 300000 70000 300000 70000 5679 5681 5683 5685 
+
+echo "Deleting shms"
+sh del_shm
+echo "Deleted"
+
+echo "Killing all servers to detach all shared memories"
+killall server
+echo "Killed all servers"

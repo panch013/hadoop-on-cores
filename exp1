@@ -1,0 +1,9 @@
+echo "Running Servers(Write)"
+taskset 0xff ./server 30000 7000 30000 7000 5678 5679 &
+taskset 0xff00 ./server 30000 7000 30000 7000 5680 5681 &
+taskset 0xff0000 ./server 30000 7000 30000 7000 5682 5683 &
+taskset 0xff000000 ./server 30000 7000 30000 7000 5684 5685 &
+
+sleep 5
+echo "Running Client(Read)"
+taskset 0xff ./client 30000 7000 30000 7000 30000 7000 30000 7000 5678 5680 5682 5684
