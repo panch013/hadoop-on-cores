@@ -10,7 +10,7 @@
 extern double mysecond();
 main(int argc, char *argv[])
 {
-    int shmid_1, shmid_2, shmid_3, shmid_4;
+    int shmid_1, shmid_2, shmid_3, shmid_4, i1,i2,i3,i4;
     key_t key_1, key_2, key_3, key_4;
     int *shm_1, *shm_2, *shm_3, *shm_4, *s_1, *s_2, *s_3, *s_4;
     //time_t start,end;
@@ -78,15 +78,35 @@ main(int argc, char *argv[])
      * Now read what the server put in the memory.
      */
 
+    i1 = 0;
     start = mysecond(); 
     //start = time(NULL); 
-    int i = 0;
-    for (s_1 = shm_1; i < LIMIT_1; s_1++){
+    for (s_1 = shm_1; i1 < LIMIT_1; s_1++){
         //printf("%d\t", *s);
         *s_1;
-        i++;
+        i1++;
     }
-    putchar('\n');
+    //end = time(NULL); 
+    end = mysecond(); 
+    
+    //printf("%11.6f\n", (end-start));
+
+    /*
+     * Finally, change the first character of the 
+     * segment to '*', indicating we have read 
+     * the segment.
+     */
+    //*shm_1 = LIMIT_1+1;
+
+
+    i1 = 0;
+    start = mysecond(); 
+    //start = time(NULL); 
+    for (s_1 = shm_1; i1 < LIMIT_1; s_1++){
+        //printf("%d\t", *s);
+        *s_1;
+        i1++;
+    }
     //end = time(NULL); 
     end = mysecond(); 
     
@@ -99,13 +119,33 @@ main(int argc, char *argv[])
      */
     *shm_1 = LIMIT_1+1;
 
+    i2 = 0;
     start = mysecond(); 
     //start = time(NULL); 
-    i = 0;
-    for (s_2 = shm_2; i < LIMIT_2; s_2++){
+    for (s_2 = shm_2; i2 < LIMIT_2; s_2++){
         //printf("%d\t", *s);
         *s_2;
-        i++;
+        i2++;
+    }
+    //end = time(NULL); 
+    end = mysecond(); 
+    
+    //printf("%11.6f\n", (end-start));
+
+    /*
+     * Finally, change the first character of the 
+     * segment to '*', indicating we have read 
+     * the segment.
+     */
+    //*shm_2 = LIMIT_2+1;
+
+    i2 = 0;
+    start = mysecond(); 
+    //start = time(NULL); 
+    for (s_2 = shm_2; i2 < LIMIT_2; s_2++){
+        //printf("%d\t", *s);
+        *s_2;
+        i2++;
     }
     //end = time(NULL); 
     end = mysecond(); 
@@ -119,13 +159,34 @@ main(int argc, char *argv[])
      */
     *shm_2 = LIMIT_2+1;
 
+    i3 = 0;
     start = mysecond(); 
     //start = time(NULL); 
-    i = 0;
-    for (s_3 = shm_3; i < LIMIT_3; s_3++){
+    for (s_3 = shm_3; i3 < LIMIT_3; s_3++){
         //printf("%d\t", *s);
         *s_3;
-        i++;
+        i3++;
+    }
+    //end = time(NULL); 
+    end = mysecond(); 
+    
+    //printf("%11.6f\n", (end-start));
+
+    /*
+     * Finally, change the first character of the 
+     * segment to '*', indicating we have read 
+     * the segment.
+     */
+    //*shm_3 = LIMIT_3+1;
+    
+
+    i3 = 0;
+    start = mysecond(); 
+    //start = time(NULL); 
+    for (s_3 = shm_3; i3 < LIMIT_3; s_3++){
+        //printf("%d\t", *s);
+        *s_3;
+        i3++;
     }
     //end = time(NULL); 
     end = mysecond(); 
@@ -139,13 +200,33 @@ main(int argc, char *argv[])
      */
     *shm_3 = LIMIT_3+1;
     
+    i4 = 0;
     start = mysecond(); 
     //start = time(NULL); 
-    i = 0;
-    for (s_4 = shm_4; i < LIMIT_4; s_4++){
+    for (s_4 = shm_4; i4 < LIMIT_4; s_4++){
         //printf("%d\t", *s);
         *s_4;
-        i++;
+        i4++;
+    }
+    //end = time(NULL); 
+    end = mysecond(); 
+    
+    //printf("%11.6f\n", (end-start));
+
+    /*
+     * Finally, change the first character of the 
+     * segment to '*', indicating we have read 
+     * the segment.
+     */
+    //*shm_4 = LIMIT_4+1;
+    
+    i4 = 0;
+    start = mysecond(); 
+    //start = time(NULL); 
+    for (s_4 = shm_4; i4 < LIMIT_4; s_4++){
+        //printf("%d\t", *s);
+        *s_4;
+        i4++;
     }
     //end = time(NULL); 
     end = mysecond(); 
@@ -158,6 +239,19 @@ main(int argc, char *argv[])
      * the segment.
      */
     *shm_4 = LIMIT_4+1;
+    
+    i4 = 0;
+    start = mysecond(); 
+    //start = time(NULL);
+    int *arr = malloc(sizeof(int)*100000000); 
+    for (; i4 < 100000000; i4++){
+        //printf("%d\t", *s);
+        arr[i4];
+    }
+    //end = time(NULL); 
+    end = mysecond(); 
+    
+    printf("Local %11.6f\n", (end-start));
     exit(0);
 }
 
